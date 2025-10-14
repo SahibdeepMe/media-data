@@ -13,12 +13,6 @@
       "url": "https://valiw.hakunaymatata.com/resource/3e6ab1db7df3d8dfceefaa1ce1876925.mp4?auth_key=1760361447-0-0-3eff25b859ae213c10bf770e1539ed0c"
     },
     {
-      "title": "Kurukshetra",
-      "company": "Netflix",
-      "thumbnail": "https://media.newindianexpress.com/newindianexpress%2F2025-09-11%2F7yi7smrj%2Fkasf.jpg",
-      "url": "https://valiw.hakunaymatata.com/resource/a7a384225560ba39d5b0260e880618f4.mp4?auth_key=1760457339-0-0-e28f1ef51d7099b71869ec77ed36bcc7"
-    },
-    {
       "title": "War 2",
       "company": "Yash Raj Films",
       "thumbnail": "https://i.ytimg.com/vi/mjBym9uKth4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCGwJnohckQydnnB4JIrc8MF0fkiA",
@@ -35,6 +29,12 @@
       "company": "T-Series Films",
       "thumbnail": "https://s1.dmcdn.net/v/Y9mhw1dxTErnrz4CD/x1080",
       "url": "https://valiw.hakunaymatata.com/tran-audio/20250608/0b0744eccc60075be644902918493f57.mp4?auth_key=1760452686-0-0-7747b2b313670c52ef0685a5bf742dd3"
+    },
+    {
+      "title": "Kurukshetra",
+      "company": "T-Series Films",
+      "thumbnail": "https://media.newindianexpress.com/newindianexpress%2F2025-09-11%2F7yi7smrj%2Fkasf.jpg",
+      "url": "https://valiw.hakunaymatata.com/resource/a7a384225560ba39d5b0260e880618f4.mp4?auth_key=1760457339-0-0-e28f1ef51d7099b71869ec77ed36bcc7"
     }
   ],
   "series": [
