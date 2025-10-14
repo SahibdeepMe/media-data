@@ -1,0 +1,79 @@
+{
+  "movies": [
+    {
+      "title": "Fantastic 4",
+      "company": "Marvel Studios",
+      "thumbnail": "https://imageio.forbes.com/specials-images/imageserve/6884107015166217b5439876/the-fantastic-four-first-steps-flying/960x0.jpg?format=jpg&width=960",
+      "url": "https://valiw.hakunaymatata.com/resource/edb668d2838b90c18075d36aa7b61c65.mp4?auth_key=1760360103-0-0-daad79acac76f464be12f083873af662"
+    },
+    {
+      "title": "Son of Sardar 2",
+      "company": "Viacom18 Motion Pictures",
+      "thumbnail": "https://impressivetimes.com/wp-content/uploads/2025/07/THE-IMPRESSIVE-TIMES-2025-07-19T211346.670.jpg",
+      "url": "https://valiw.hakunaymatata.com/resource/3e6ab1db7df3d8dfceefaa1ce1876925.mp4?auth_key=1760361447-0-0-3eff25b859ae213c10bf770e1539ed0c"
+    },
+    {
+      "title": "War 2",
+      "company": "Yash Raj Films",
+      "thumbnail": "https://i.ytimg.com/vi/mjBym9uKth4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCGwJnohckQydnnB4JIrc8MF0fkiA",
+      "url": "https://valiw.hakunaymatata.com/resource/ab7bf984c12a9b2ac108436e32bb2b64.mp4?auth_key=1760368462-0-0-2092aaa2352f21207c6b6fa28bce12ff"
+    },
+    {
+      "title": "Raid 2",
+      "company": "T-Series Films",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS7kkQ07Q7figOz0zkGOKylwxsGr3zplmGeQ&s",
+      "url": "https://valiw.hakunaymatata.com/tran-audio/20250629/e3c5ceeed5da49def4aa53864ef82ae4.mp4?auth_key=1760358941-0-0-4563105e18ae3058e37f5e006baccc0b"
+    }
+  ],
+
+  "series": [
+    {
+      "title": "The Kapil Sharma Show",
+      "thumbnail": "https://exchange4media.gumlet.io/news-photo/135622-134437-big-2024-05-17T083808.424.jpg",
+      "seasons": [
+        {
+          "name": "Season 3",
+          "episodes": [
+            {
+              "name": "Episode 1",
+              "url": "https://valiw.hakunaymatata.com/resource/accb7a36031ae4bf29c9f4b408f8c984.mp4?auth_key=1760361555-0-0-8048ed74479fc2f7373c140835199f90"
+            },
+            {
+              "name": "Episode 2",
+              "url": "https://valiw.hakunaymatata.com/tran-audio/20250630/387805d16a4d7aa511501ba167013148.mp4?auth_key=1760361689-0-0-4dcebfb16294d55cbc8eb1f7273c12d5"
+            },
+            {
+              "name": "Episode 3",
+              "url": "https://valiw.hakunaymatata.com/tran-audio/20250707/a51b28a0c64518223af6685286f97511.mp4?auth_key=1760361703-0-0-f8e9c99067e2245573ac3d1579173af1"
+            },
+            {
+              "name": "Episode 4",
+              "url": "https://valiw.hakunaymatata.com/tran-audio/20250714/ac97b3c26e49ce72c01fa152a6277aa0.mp4?auth_key=1760361721-0-0-73584638b98565bf5ba675c2e43c5913"
+            }
+          ]
+        },
+        {
+          "name": "Season 2",
+          "episodes": [
+            {
+              "name": "Episode 1",
+              "url": "https://valiw.hakunaymatata.com/tran-audio/20250602/d0d825d9c346a6c4972c9bef1fc61cd2.mp4?auth_key=1760361737-0-0-bfade3514308feb8526ba6817c450d1a"
+            },
+            {
+              "name": "Episode 2",
+              "url": "https://valiw.hakunaymatata.com/resource/2e260c0d78abf242c49404101368b2bb.mp4?auth_key=1760360994-0-0-c4a2611ea3d32ead609ae6f604cb8e96"
+            },
+            {
+              "name": "Episode 3",
+              "url": "https://valiw.hakunaymatata.com/resource/0e901495f60476f974d0641f4eb02aab.mp4?auth_key=1760361763-0-0-1185f01658f420bdc976c943b566d586"
+            },
+            {
+              "name": "Episode 4",
+              "url": "https://valiw.hakunaymatata.com/resource/74d9a007c825214496141739e91267a6.mp4?auth_key=1760361778-0-0-217aa05686dafecedc92b2843850cb4c"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
