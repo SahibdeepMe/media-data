@@ -1,4 +1,4 @@
-{
+{ 
   "movies": [
     {
       "title": "Fantastic 4",
@@ -47,6 +47,12 @@
       "company": "Marvel Studios",
       "thumbnail": "https://ntvb.tmsimg.com/assets/p20933619_v_h10_ag.jpg?w=960&h=540",
       "url": "https://valiw.hakunaymatata.com/vegamovies/c70e70e7f6e034b344cc81d4ef3132d7.mp4?auth_key=1760541696-0-0-4052518ba888e03b8519e76eb11d580c"
+    },
+    {
+      "title": "Heads of State",
+      "company": "Amazon MGM Studios",
+      "thumbnail": "https://fwmedia.fandomwire.com/wp-content/uploads/2025/06/26170856/heads-of-state-review1.jpg",
+      "url": "https://1drv.ms/v/c/979CD6CCF6502A3E/EZ_8LjBt1BRDvEkW0rUF8p4B3OdOLLyflabEkWQm2gkOmA?e=XhHXu8"
     }
   ],
   "series": [
