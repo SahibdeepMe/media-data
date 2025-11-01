@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano Banana Boards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        .board-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .board {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .board::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .board:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .board img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .board:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .board h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        .board p {
+            color: #718096;
+            font-size: 1rem;
+        }
+
+        .add-board {
+            border: 3px dashed #cbd5e0;
+            background: rgba(255, 255, 255, 0.7);
+            color: #718096;
+            font-weight: bold;
+        }
+
+        .add-board:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #a0aec0;
+        }
+
+        .add-board div {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .popup-content h2 {
+            margin-bottom: 25px;
+            color: #2d3748;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .popup-content input, .popup-content textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .popup-content input:focus, .popup-content textarea:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .popup-content textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .popup-content button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            margin-top: 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .popup-content button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            color: #718096;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: auto;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #2d3748;
+        }
+
+        .output-area {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .output-area img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border: 3px solid white;
+            transition: transform 0.3s;
+        }
+
+        .output-area img:hover {
+            transform: scale(1.02);
+        }
+
+        .output-area .placeholder {
+            padding: 40px 20px;
+            background: #f7fafc;
+            border-radius: 15px;
+            color: #718096;
+            font-size: 1.1rem;
+            border: 2px dashed #cbd5e0;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 12px 25px;
+            margin-top: 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 40px;
+            font-size: 1.1rem;
+        }
+
+        .api-info {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 1rem;
+            border-left: 5px solid #667eea;
+        }
+
+        .api-info code {
+            background: #e2e8f0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            background: #f0fff4;
+            color: #2f855a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 5px solid #48bb78;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .image-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .regenerate-btn {
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+        }
+
+        .regenerate-btn:hover {
+            box-shadow: 0 7px 20px rgba(237, 137, 54, 0.4);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .api-key-note {
+            font-size: 0.8rem;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .test-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✨ Nano Banana Boards ✨</h1>
+            <p>AI Image Generation Playground</p>
+        </header>
+
+        <div class="board-container" id="board-container">
+            <!-- Default Nano Banana Board -->
+            <div class="board" onclick="openBoard('Nano Banana', 'Image Creation', 'black-forest-labs/flux-1.1-pro', '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')">
+                <img src="https://cdn-icons-png.flaticon.com/512/8371/8371657.png" alt="Nano Banana">
+                <h3>Nano Banana</h3>
+                <p>Image Creation</p>
+            </div>
+
+            <!-- Add New Board -->
+            <div class="board add-board" onclick="openAddPopup()">
+                <div>+</div>
+                <h3>Add Board</h3>
+                <p>Custom Model</p>
+            </div>
+        </div>
+
+        <!-- Add Board Popup -->
+        <div class="popup" id="add-popup">
+            <div class="popup-content">
+                <button class="close-btn" onclick="closeAddPopup()">&times;</button>
+                <h2>Add New Board</h2>
+                
+                <div class="form-group">
+                    <label for="board-name">Board Name</label>
+                    <input type="text" id="board-name" placeholder="e.g., Nano Banana">
+                </div>
+                
+                <div class="form-group">
+                    <label for="board-category">Category</label>
+                    <input type="text" id="board-category" placeholder="e.g., Image Creation">
+                </div>
+                
+                <div class="form-group">
+                    <label for="board-model">Model URL</label>
+                    <input type="text" id="board-model" placeholder="e.g., black-forest-labs/flux-1.1-pro">
+                    <div class="api-key-note">Recommended: black-forest-labs/flux-1.1-pro (for images)</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="board-api-key">API Key</label>
+                    <input type="password" id="board-api-key" placeholder="Enter your OpenRouter API key">
+                    <div class="api-key-note">Get your API key from <a href="https://openrouter.ai/keys" target="_blank">OpenRouter</a></div>
+                </div>
+                
+                <button onclick="addBoard()">Add Board</button>
+            </div>
+        </div>
+
+        <!-- Board Popup -->
+        <div class="popup" id="board-popup">
+            <div class="popup-content">
+                <button class="close-btn" onclick="closeBoardPopup()">&times;</button>
+                <h2 id="popup-title">Nano Banana</h2>
+                <p id="popup-category" style="text-align: center; color: #718096; margin-bottom: 20px;">Image Creation (black-forest-labs/flux-1.1-pro)</p>
+                
+                <div class="api-info">
+                    <strong>API Status:</strong> 
+                    <span id="api-status" style="color: #38a169; font-weight: bold;">Ready to generate images</span>
+                    <br><br>
+                    <strong>Current Model:</strong> <code id="current-model-display">black-forest-labs/flux-1.1-pro</code>
+                    <br><br>
+                    <strong>Tip:</strong> Use descriptive prompts like "a cute banana surfing on a rainbow wave"
+                </div>
+                
+                <textarea id="prompt-input" placeholder="Describe the image you want to create... (e.g., 'a cute banana with sunglasses surfing on a rainbow wave')"></textarea>
+                <button onclick="generateImage()" id="generate-btn">Generate Image</button>
+                
+                <div class="output-area" id="output-area">
+                    <div class="placeholder">✨ Your AI-generated image will appear here ✨</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Nano Banana AI | Powered by OpenRouter</p>
+        </footer>
+    </div>
+
+    <script>
+        const OPENROUTER_URL = "https://openrouter.ai/api/v1";
+        
+        // Store boards and their API keys
+        let boards = [];
+        let currentModel = "";
+        let currentBoard = "";
+        let currentApiKey = "";
+
+        // Load boards from localStorage on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBoardsFromStorage();
+            
+            // Add default Nano Banana board if no boards exist
+            if (boards.length === 0) {
+                boards.push({
+                    name: "Nano Banana",
+                    category: "Image Creation", 
+                    model: "black-forest-labs/flux-1.1-pro",
+                    apiKey: "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",
+                    id: "default-nano-banana"
+                });
+                saveBoardsToStorage();
+                renderBoards();
+            }
+        });
+
+        function openAddPopup() {
+            document.getElementById("add-popup").style.display = "flex";
+            // Clear the form
+            document.getElementById("board-name").value = "";
+            document.getElementById("board-category").value = "";
+            document.getElementById("board-model").value = "";
+            document.getElementById("board-api-key").value = "";
+        }
+
+        function closeAddPopup() {
+            document.getElementById("add-popup").style.display = "none";
+        }
+
+        function addBoard() {
+            const name = document.getElementById("board-name").value.trim();
+            const category = document.getElementById("board-category").value.trim();
+            const model = document.getElementById("board-model").value.trim();
+            const apiKey = document.getElementById("board-api-key").value.trim();
+
+            if (!name || !category || !model || !apiKey) {
+                alert("Please fill all fields including the API key!");
+                return;
+            }
+
+            // Create board object
+            const board = {
+                name: name,
+                category: category,
+                model: model,
+                apiKey: apiKey,
+                id: Date.now().toString()
+            };
+
+            // Add to boards array
+            boards.push(board);
+            
+            // Save to localStorage
+            saveBoardsToStorage();
+            
+            // Update UI
+            renderBoards();
+            
+            closeAddPopup();
+            
+            // Show success message
+            alert(`Board "${name}" added successfully!`);
+        }
+
+        function renderBoards() {
+            const container = document.getElementById("board-container");
+            container.innerHTML = '';
+            
+            // Render all boards
+            boards.forEach(board => {
+                const div = document.createElement("div");
+                div.classList.add("board");
+                div.onclick = () => openBoard(board);
+                div.innerHTML = `
+                    <img src="https://cdn-icons-png.flaticon.com/512/8371/8371657.png" alt="${board.name}">
+                    <h3>${board.name}</h3>
+                    <p>${board.category}</p>
+                `;
+                container.appendChild(div);
+            });
+            
+            // Add the add board button at the end
+            const addDiv = document.createElement("div");
+            addDiv.classList.add("board", "add-board");
+            addDiv.onclick = openAddPopup;
+            addDiv.innerHTML = `
+                <div>+</div>
+                <h3>Add Board</h3>
+                <p>Custom Model</p>
+            `;
+            container.appendChild(addDiv);
+        }
+
+        function openBoard(board) {
+            currentModel = board.model;
+            currentBoard = board.name;
+            currentApiKey = board.apiKey;
+            
+            document.getElementById("popup-title").innerText = board.name;
+            document.getElementById("popup-category").innerText = `${board.category} (${board.model})`;
+            document.getElementById("current-model-display").textContent = board.model;
+            document.getElementById("api-status").textContent = 'Ready to generate images';
+            document.getElementById("api-status").style.color = '#38a169';
+            
+            document.getElementById("board-popup").style.display = "flex";
+            document.getElementById("output-area").innerHTML = '<div class="placeholder">✨ Your AI-generated image will appear here ✨</div>';
+        }
+
+        function closeBoardPopup() {
+            document.getElementById("board-popup").style.display = "none";
+            document.getElementById("output-area").innerHTML = '<div class="placeholder">✨ Your AI-generated image will appear here ✨</div>';
+            document.getElementById("prompt-input").value = "";
+        }
+
+        async function generateImage() {
+            const prompt = document.getElementById("prompt-input").value.trim();
+            const output = document.getElementById("output-area");
+            const generateBtn = document.getElementById("generate-btn");
+            
+            if (!prompt) {
+                alert("Please enter a prompt!");
+                return;
+            }
+
+            // Show loading state
+            generateBtn.innerHTML = '<span class="loading"></span> Generating Image...';
+            generateBtn.disabled = true;
+            
+            output.innerHTML = "<p>🔄 Generating your image... This may take 10-30 seconds.</p>";
+
+            try {
+                const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${currentApiKey}`,
+                        "HTTP-Referer": window.location.origin,
+                        "X-Title": "Nano Banana Boards"
+                    },
+                    body: JSON.stringify({
+                        model: currentModel,
+                        messages: [
+                            { 
+                                role: "user", 
+                                content: [
+                                    { 
+                                        type: "text", 
+                                        text: `Generate an image of: ${prompt}. Return only the image URL.`
+                                    }
+                                ]
+                            }
+                        ],
+                        max_tokens: 1000
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log("API Response:", data);
+
+                // Extract image URL from response
+                let imageUrl = null;
+                
+                // Method 1: Check for image URL in content
+                const content = data?.choices?.[0]?.message?.content || "";
+                if (typeof content === 'string') {
+                    const urlMatch = content.match(/(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|webp))/i);
+                    if (urlMatch) {
+                        imageUrl = urlMatch[0];
+                    }
+                }
+                
+                // Method 2: Check for base64 encoded image
+                if (!imageUrl && content.includes('data:image')) {
+                    const base64Match = content.match(/data:image\/[^;]+;base64,[^"]+/);
+                    if (base64Match) {
+                        imageUrl = base64Match[0];
+                    }
+                }
+
+                // Method 3: If no image URL found, use a placeholder
+                if (!imageUrl) {
+                    // Create a placeholder image based on the prompt
+                    const placeholderText = prompt.substring(0, 30) + (prompt.length > 30 ? '...' : '');
+                    output.innerHTML = `
+                        <div class="success-message">
+                            ⚠️ Using placeholder image (API returned text)
+                        </div>
+                        <div class="image-container">
+                            <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 60px 20px; border-radius: 15px; font-size: 1.2rem;">
+                                <div style="font-size: 3rem; margin-bottom: 20px;">🖼️</div>
+                                <strong>Generated Image:</strong><br>
+                                "${placeholderText}"
+                            </div>
+                        </div>
+                        <div class="image-actions">
+                            <button onclick="generateImage()" class="download-btn regenerate-btn">Try Again with Different Model</button>
+                        </div>
+                        <p style="margin-top: 15px; color: #718096; font-size: 0.9rem;">
+                            Model: <strong>${currentModel}</strong> | Prompt: "${prompt}"
+                        </p>
+                        <div style="background: #fff5f5; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                            <strong>Note:</strong> The model returned text instead of an image. Try using <code>black-forest-labs/flux-1.1-pro</code> for image generation.
+                        </div>
+                    `;
+                } else {
+                    output.innerHTML = `
+                        <div class="success-message">
+                            ✅ Image generated successfully!
+                        </div>
+                        <div class="image-container">
+                            <img src="${imageUrl}" alt="AI Generated Image" id="generated-image" onerror="handleImageError()">
+                        </div>
+                        <div class="image-actions">
+                            <a href="${imageUrl}" download="${currentBoard}-${Date.now()}.png" class="download-btn">Download Image</a>
+                            <button onclick="regenerateImage()" class="download-btn regenerate-btn">Regenerate</button>
+                        </div>
+                        <p style="margin-top: 15px; color: #718096; font-size: 0.9rem;">
+                            Model: <strong>${currentModel}</strong> | Prompt: "${prompt}"
+                        </p>
+                    `;
+                }
+
+            } catch (err) {
+                console.error("Error:", err);
+                output.innerHTML = `
+                    <div style="color: #e53e3e; background: #fed7d7; padding: 20px; border-radius: 10px;">
+                        <h3>Error Generating Image</h3>
+                        <p>${err.message}</p>
+                        <p>Please check your API key and try again.</p>
+                    </div>
+                    <button onclick="generateImage()" class="download-btn regenerate-btn" style="margin-top: 15px;">Try Again</button>
+                `;
+            } finally {
+                // Reset button
+                generateBtn.innerHTML = 'Generate Image';
+                generateBtn.disabled = false;
+            }
+        }
+
+        function handleImageError() {
+            const output = document.getElementById("output-area");
+            output.innerHTML += `
+                <div style="background: #fff5f5; color: #c53030; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                    <strong>Image failed to load:</strong> The generated image URL might be temporary or invalid.
+                </div>
+            `;
+        }
+
+        function regenerateImage() {
+            generateImage();
+        }
+
+        // Save boards to localStorage
+        function saveBoardsToStorage() {
+            localStorage.setItem('nanoBananaBoards', JSON.stringify(boards));
+        }
+
+        // Load boards from localStorage
+        function loadBoardsFromStorage() {
+            const savedBoards = localStorage.getItem('nanoBananaBoards');
+            if (savedBoards) {
+                boards = JSON.parse(savedBoards);
+                renderBoards();
+            }
+        }
+
+        // Close popups when clicking outside
+        window.onclick = function(event) {
+            const addPopup = document.getElementById("add-popup");
+            const boardPopup = document.getElementById("board-popup");
+            
+            if (event.target === addPopup) {
+                closeAddPopup();
+            }
+            if (event.target === boardPopup) {
+                closeBoardPopup();
+            }
+        }
+    </script>
+</body>
+</html>
