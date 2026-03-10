@@ -2,6 +2,8 @@
 #EXTINF:-1 tvg-id="jaduu" tvg-name="Jaduu" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Logo_PRO.svg/960px-Logo_PRO.svg.png" group-title="Live TV",Jaduu
 http://iptvcasomsapi.jprdigital.in/x-media/C0413/master.m3u8
 #EXTM3U
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMfcnyr7sfD5ZqO9Dj5fUGRkwT39qTaFNIvA&s",5-7 Karan Aujla Song
+https://xmoshvhvgcyettfiuryz.supabase.co/storage/v1/object/public/merged-files/9a123a87-92f0-4396-a01c-83f481c44e58/1773145575748_5-7__Music_Video__Karan_Aujla__Mxrci__Alankriitaa_Sahai__Rehaan_Records__Punjabi_Songs_2026-1280x720-avc1-mp4a.mp4
 #EXTINF:-1 tvg-id="123tv.de@SD" tvg-logo="https://i.imgur.com/slSUDNX.png" group-title="Shop",1-2-3 TV (270p)
 https://123tv-mx1.flex-cdn.net/index.m3u8
 #EXTINF:-1 tvg-id="1AlmereTV.nl@SD" tvg-logo="https://i.imgur.com/XfkbTrU.png" group-title="General",1Almere TV (720p)
