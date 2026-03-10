@@ -1,3 +1,3 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="jaduu" tvg-name="Jaduu" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr06HCSG1sW7av5wrsqy_2UBgkGfJgskgOmQ&s" group-title="Live TV",Jaduu
+#EXTINF:-1 tvg-id="jaduu" tvg-name="Jaduu" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Logo_PRO.svg/960px-Logo_PRO.svg.png" group-title="Live TV",Jaduu
 http://iptvcasomsapi.jprdigital.in/x-media/C0413/master.m3u8
